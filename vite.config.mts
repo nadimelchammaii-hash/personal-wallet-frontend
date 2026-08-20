@@ -46,5 +46,9 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    // Docker Desktop on Windows doesn't propagate native filesystem
+    // change events across a bind mount, so HMR silently stops working
+    // for the containerized dev server without polling.
+    watch: process.env.CHOKIDAR_USEPOLLING === 'true' ? { usePolling: true } : undefined,
   },
 })

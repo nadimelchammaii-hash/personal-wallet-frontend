@@ -109,13 +109,15 @@
     </template>
 
     <template #item.account="{ item }">
-      <div class="d-flex align-center ga-1">
+      <div v-if="item.type === 'transfer_in' || item.type === 'transfer_out'" class="d-flex align-center ga-1">
+        {{ item.type === 'transfer_out' ? item.account.name : item.related_account?.name }}
+        <v-icon icon="mdi-arrow-right" size="small" />
+        {{ item.type === 'transfer_out' ? item.related_account?.name : item.account.name }}
+      </div>
+
+      <div v-else class="d-flex align-center ga-1">
         <v-icon :icon="item.account.icon ?? 'mdi-wallet'" size="small" />
         {{ item.account.name }}
-        <template v-if="item.related_account">
-          <v-icon icon="mdi-arrow-right" size="small" />
-          {{ item.related_account.name }}
-        </template>
       </div>
     </template>
 

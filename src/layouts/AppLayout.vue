@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useDisplay } from 'vuetify'
   import { useAuthStore } from '@/stores/auth'
@@ -80,7 +80,15 @@
   const route = useRoute()
   const { mdAndUp } = useDisplay()
 
-  const drawerOpen = ref(true)
+  // Permanent on desktop, closed by default on mobile (it renders as a
+  // full-screen temporary overlay there, so open-by-default would block
+  // the page on load).
+  const drawerOpen = ref(mdAndUp.value)
+
+  // Collapse the temporary mobile drawer after navigating to a page.
+  watch(route, () => {
+    if (!mdAndUp.value) drawerOpen.value = false
+  })
 
   const navGroups = [
     {

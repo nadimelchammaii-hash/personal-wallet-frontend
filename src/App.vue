@@ -3,12 +3,15 @@
     <component :is="layout">
       <router-view />
     </component>
+
+    <GlobalSnackbar />
   </v-app>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { useRoute } from 'vue-router'
+  import GlobalSnackbar from '@/components/GlobalSnackbar.vue'
   import { useAppTheme } from '@/composables/useAppTheme'
   import AppLayout from '@/layouts/AppLayout.vue'
   import AuthLayout from '@/layouts/AuthLayout.vue'

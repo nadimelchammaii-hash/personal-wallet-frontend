@@ -14,7 +14,7 @@
     density="compact"
     hide-details
     label="Show archived"
-    @update:model-value="accountsStore.fetchAccounts()"
+    @update:model-value="accountsStore.fetchAccounts().catch(() => {})"
   />
 
   <v-row v-if="accountsStore.accounts.length > 0">
@@ -72,14 +72,15 @@
     </template>
   </v-empty-state>
 
-  <AccountFormDialog v-model="isDialogOpen" :account="editingAccount" @saved="accountsStore.fetchAccounts()" />
+  <AccountFormDialog v-model="isDialogOpen" :account="editingAccount" @saved="accountsStore.fetchAccounts().catch(() => {})" />
 
   <v-dialog v-model="isDeleteDialogOpen" max-width="420">
     <v-card>
       <v-card-title>Delete account</v-card-title>
 
       <v-card-text>
-        Delete <strong>{{ deletingAccount?.name }}</strong>? This can't be undone.
+        Delete <strong>{{ deletingAccount?.name }}</strong>? This permanently deletes all of its transactions too.
+        This can't be undone — if you want to keep the history, archive it instead.
       </v-card-text>
 
       <v-card-actions class="justify-end">
@@ -146,6 +147,6 @@
   }
 
   onMounted(() => {
-    accountsStore.fetchAccounts()
+    accountsStore.fetchAccounts().catch(() => {})
   })
 </script>

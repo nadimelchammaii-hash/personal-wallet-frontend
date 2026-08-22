@@ -76,7 +76,7 @@ export const useBudgetsStore = defineStore('budgets', () => {
     } else {
       month.value -= 1
     }
-    fetchBudgets()
+    fetchBudgets().catch(() => {})
   }
 
   function nextMonth () {
@@ -86,7 +86,7 @@ export const useBudgetsStore = defineStore('budgets', () => {
     } else {
       month.value += 1
     }
-    fetchBudgets()
+    fetchBudgets().catch(() => {})
   }
 
   return { budgets, isLoading, month, year, fetchBudgets, createBudget, updateBudget, deleteBudget, previousMonth, nextMonth }

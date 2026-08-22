@@ -176,6 +176,6 @@
   }
 
   onMounted(() => {
-    dashboardStore.fetchSummary()
+    dashboardStore.fetchSummary().catch(() => {})
   })
 </script>

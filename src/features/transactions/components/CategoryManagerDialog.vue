@@ -29,7 +29,7 @@
 
               <template v-if="!category.is_default" #append>
                 <v-btn icon="mdi-pencil" size="small" variant="text" @click="startEdit(category)" />
-                <v-btn icon="mdi-delete" size="small" variant="text" @click="handleDelete(category)" />
+                <v-btn icon="mdi-delete" size="small" variant="text" @click="confirmDelete(category)" />
               </template>
 
               <template v-else #append>
@@ -91,6 +91,22 @@
 
       <v-card-actions class="justify-end">
         <v-btn variant="text" @click="isOpen = false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="isDeleteDialogOpen" max-width="440">
+    <v-card>
+      <v-card-title>Delete category</v-card-title>
+
+      <v-card-text>
+        Delete <strong>{{ deletingCategory?.name }}</strong>? Any budgets set for this category will also be
+        deleted, and its existing transactions will keep their amounts but lose this category. This can't be undone.
+      </v-card-text>
+
+      <v-card-actions class="justify-end">
+        <v-btn variant="text" @click="isDeleteDialogOpen = false">Cancel</v-btn>
+        <v-btn color="error" :loading="isDeleting" @click="handleDelete">Delete</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -169,11 +185,27 @@
     }
   }
 
-  async function handleDelete (category: Category) {
+  const isDeleteDialogOpen = ref(false)
+  const deletingCategory = ref<Category | null>(null)
+  const isDeleting = ref(false)
+
+  function confirmDelete (category: Category) {
+    deletingCategory.value = category
+    isDeleteDialogOpen.value = true
+  }
+
+  async function handleDelete () {
+    if (!deletingCategory.value) return
+
+    isDeleting.value = true
     try {
-      await categoriesStore.deleteCategory(category.id)
+      await categoriesStore.deleteCategory(deletingCategory.value.id)
+      isDeleteDialogOpen.value = false
     } catch (error) {
       generalError.value = extractErrorMessage(error)
+      isDeleteDialogOpen.value = false
+    } finally {
+      isDeleting.value = false
     }
   }
 </script>

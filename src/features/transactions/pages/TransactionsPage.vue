@@ -205,12 +205,12 @@
 
   function applyFilters () {
     transactionsStore.filters.page = 1
-    transactionsStore.fetchTransactions()
+    transactionsStore.fetchTransactions().catch(() => {})
   }
 
   function onPageChange (page: number) {
     transactionsStore.filters.page = page
-    transactionsStore.fetchTransactions()
+    transactionsStore.fetchTransactions().catch(() => {})
   }
 
   function amountClass (type: TransactionType) {
@@ -264,8 +264,8 @@
   }
 
   onMounted(() => {
-    accountsStore.fetchAccounts()
-    categoriesStore.fetchCategories()
-    transactionsStore.fetchTransactions()
+    accountsStore.fetchAccounts().catch(() => {})
+    categoriesStore.fetchCategories().catch(() => {})
+    transactionsStore.fetchTransactions().catch(() => {})
   })
 </script>

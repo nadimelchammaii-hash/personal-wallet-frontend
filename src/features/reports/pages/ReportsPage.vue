@@ -182,6 +182,6 @@
   }))
 
   onMounted(() => {
-    reportsStore.fetchAll()
+    reportsStore.fetchAll().catch(() => {})
   })
 </script>

@@ -79,8 +79,8 @@ export const useReportsStore = defineStore('reports', () => {
     } else {
       month.value -= 1
     }
-    fetchCategoryBreakdown()
-    fetchBudgetPerformance()
+    fetchCategoryBreakdown().catch(() => {})
+    fetchBudgetPerformance().catch(() => {})
   }
 
   function nextMonth () {
@@ -90,8 +90,8 @@ export const useReportsStore = defineStore('reports', () => {
     } else {
       month.value += 1
     }
-    fetchCategoryBreakdown()
-    fetchBudgetPerformance()
+    fetchCategoryBreakdown().catch(() => {})
+    fetchBudgetPerformance().catch(() => {})
   }
 
   return {

@@ -152,6 +152,6 @@
   }
 
   onMounted(() => {
-    goalsStore.fetchGoals()
+    goalsStore.fetchGoals().catch(() => {})
   })
 </script>

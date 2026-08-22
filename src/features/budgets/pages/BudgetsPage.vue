@@ -179,7 +179,7 @@
   }
 
   onMounted(() => {
-    categoriesStore.fetchCategories()
-    budgetsStore.fetchBudgets()
+    categoriesStore.fetchCategories().catch(() => {})
+    budgetsStore.fetchBudgets().catch(() => {})
   })
 </script>

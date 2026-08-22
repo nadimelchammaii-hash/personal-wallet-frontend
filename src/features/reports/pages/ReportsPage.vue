@@ -67,6 +67,7 @@
   } from 'chart.js'
   import { computed, onMounted } from 'vue'
   import { Bar, Doughnut, Line } from 'vue-chartjs'
+  import { useTheme } from 'vuetify'
   import { useReportsStore } from '@/stores/reports'
 
   ChartJS.register(
@@ -83,7 +84,12 @@
     Legend,
   )
 
+  ChartJS.defaults.font.family = '\'Inter\', sans-serif'
+  ChartJS.defaults.font.size = 12
+
   const reportsStore = useReportsStore()
+  const theme = useTheme()
+  const colors = computed(() => theme.current.value.colors as Record<string, string>)
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -91,14 +97,18 @@
   ]
   const periodLabel = computed(() => `${monthNames[reportsStore.month - 1]} ${reportsStore.year}`)
 
-  const successColor = '#4caf50'
-  const errorColor = '#ff5252'
-  const primaryColor = '#1867c0'
+  const successColor = computed(() => colors.value.success)
+  const errorColor = computed(() => colors.value.error)
+  const primaryColor = computed(() => colors.value.primary)
+  const gridColor = computed(() => colors.value['surface-variant'])
+  const tickColor = computed(() => colors.value['on-surface-variant'])
 
-  const palette = [
-    '#1867c0', '#5cbbf6', '#4caf50', '#ff9800', '#ff5252',
-    '#9c27b0', '#00bcd4', '#795548', '#607d8b', '#cddc39',
-  ]
+  const palette = computed(() => [
+    colors.value['category-01'], colors.value['category-02'], colors.value['category-03'],
+    colors.value['category-04'], colors.value['category-05'], colors.value['category-06'],
+    colors.value['category-07'], colors.value['category-08'], colors.value['category-09'],
+    colors.value['category-10'],
+  ])
 
   const trendsChartData = computed(() => ({
     labels: reportsStore.spendingTrends.map(point => point.period),
@@ -106,39 +116,47 @@
       {
         label: 'Income',
         data: reportsStore.spendingTrends.map(point => Number(point.income)),
-        borderColor: successColor,
-        backgroundColor: successColor,
+        borderColor: successColor.value,
+        backgroundColor: successColor.value,
         tension: 0.3,
       },
       {
         label: 'Expenses',
         data: reportsStore.spendingTrends.map(point => Number(point.expenses)),
-        borderColor: errorColor,
-        backgroundColor: errorColor,
+        borderColor: errorColor.value,
+        backgroundColor: errorColor.value,
         tension: 0.3,
       },
     ],
   }))
 
-  const trendsChartOptions = {
+  const axisOptions = computed(() => ({
+    x: { grid: { color: gridColor.value }, ticks: { color: tickColor.value } },
+    y: { grid: { color: gridColor.value }, ticks: { color: tickColor.value } },
+  }))
+
+  const trendsChartOptions = computed(() => ({
     responsive: true,
     maintainAspectRatio: false,
-  }
+    scales: axisOptions.value,
+    plugins: { legend: { labels: { color: tickColor.value } } },
+  }))
 
   const breakdownChartData = computed(() => ({
     labels: reportsStore.categoryBreakdown.map(row => row.category.name),
     datasets: [
       {
         data: reportsStore.categoryBreakdown.map(row => Number(row.amount)),
-        backgroundColor: reportsStore.categoryBreakdown.map((row, index) => row.category.color ?? palette[index % palette.length]),
+        backgroundColor: reportsStore.categoryBreakdown.map((row, index) => row.category.color ?? palette.value[index % palette.value.length]),
       },
     ],
   }))
 
-  const breakdownChartOptions = {
+  const breakdownChartOptions = computed(() => ({
     responsive: true,
     maintainAspectRatio: false,
-  }
+    plugins: { legend: { labels: { color: tickColor.value } } },
+  }))
 
   const performanceChartData = computed(() => ({
     labels: reportsStore.budgetPerformance.map(row => row.category.name),
@@ -146,20 +164,22 @@
       {
         label: 'Budgeted',
         data: reportsStore.budgetPerformance.map(row => Number(row.budgeted)),
-        backgroundColor: primaryColor,
+        backgroundColor: primaryColor.value,
       },
       {
         label: 'Spent',
         data: reportsStore.budgetPerformance.map(row => Number(row.spent)),
-        backgroundColor: errorColor,
+        backgroundColor: errorColor.value,
       },
     ],
   }))
 
-  const performanceChartOptions = {
+  const performanceChartOptions = computed(() => ({
     responsive: true,
     maintainAspectRatio: false,
-  }
+    scales: axisOptions.value,
+    plugins: { legend: { labels: { color: tickColor.value } } },
+  }))
 
   onMounted(() => {
     reportsStore.fetchAll()

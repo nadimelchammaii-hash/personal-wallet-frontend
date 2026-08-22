@@ -13,7 +13,7 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@fontsource/roboto": "^5.2.10",
+    "@fontsource/inter": "^5.2.8",
     "@mdi/font": "7.4.47",
     "axios": "^1.19.0",
     "chart.js": "^4.5.1",

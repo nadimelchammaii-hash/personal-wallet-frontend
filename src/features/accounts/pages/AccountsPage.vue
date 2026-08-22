@@ -51,7 +51,7 @@
         </v-card-item>
 
         <v-card-text>
-          <div class="text-h5 font-weight-bold">
+          <div class="text-h5 font-weight-bold tabular-nums">
             {{ formatCurrency(account.current_balance, account.currency) }}
           </div>
 

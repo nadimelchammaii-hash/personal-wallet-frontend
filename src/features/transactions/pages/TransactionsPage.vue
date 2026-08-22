@@ -130,19 +130,21 @@
     </template>
 
     <template #item.amount="{ item }">
-      <span :class="amountClass(item.type)">{{ formatAmount(item) }}</span>
+      <span class="tabular-nums" :class="amountClass(item.type)">{{ formatAmount(item) }}</span>
     </template>
 
     <template #item.actions="{ item }">
-      <v-btn
-        :disabled="item.type === 'transfer_in' || item.type === 'transfer_out'"
-        icon="mdi-pencil"
-        size="small"
-        variant="text"
-        @click="openEditDialog(item)"
-      />
+      <div class="row-actions">
+        <v-btn
+          :disabled="item.type === 'transfer_in' || item.type === 'transfer_out'"
+          icon="mdi-pencil"
+          size="small"
+          variant="text"
+          @click="openEditDialog(item)"
+        />
 
-      <v-btn icon="mdi-delete" size="small" variant="text" @click="confirmDelete(item)" />
+        <v-btn icon="mdi-delete" size="small" variant="text" @click="confirmDelete(item)" />
+      </div>
     </template>
   </v-data-table-server>
 

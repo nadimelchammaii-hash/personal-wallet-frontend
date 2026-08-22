@@ -31,7 +31,7 @@
 
           <v-card-title>{{ budget.category.name }}</v-card-title>
 
-          <v-card-subtitle>
+          <v-card-subtitle class="tabular-nums">
             {{ formatMoney(budget.spent) }} of {{ formatMoney(budget.amount) }}
           </v-card-subtitle>
 
@@ -58,12 +58,12 @@
           />
 
           <div class="d-flex justify-space-between mt-2 text-body-2">
-            <span :class="budget.is_over_budget ? 'text-error font-weight-medium' : 'text-medium-emphasis'">
+            <span class="tabular-nums" :class="budget.is_over_budget ? 'text-error font-weight-medium' : 'text-medium-emphasis'">
               {{ budget.is_over_budget ? 'Over by' : 'Remaining' }}
               {{ formatMoney(Math.abs(Number(budget.remaining))) }}
             </span>
 
-            <span class="text-medium-emphasis">{{ budget.percentage_used }}%</span>
+            <span class="text-medium-emphasis tabular-nums">{{ budget.percentage_used }}%</span>
           </div>
 
           <v-alert

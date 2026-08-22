@@ -28,37 +28,37 @@ const router = createRouter({
     {
       path: '/',
       component: DashboardPage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Dashboard' },
     },
     {
       path: '/accounts',
       component: AccountsPage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Accounts' },
     },
     {
       path: '/transactions',
       component: TransactionsPage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Transactions' },
     },
     {
       path: '/budgets',
       component: BudgetsPage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Budgets' },
     },
     {
       path: '/goals',
       component: GoalsPage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Goals' },
     },
     {
       path: '/reports',
       component: ReportsPage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Reports' },
     },
     {
       path: '/profile',
       component: ProfilePage,
-      meta: { layout: 'app', requiresAuth: true },
+      meta: { layout: 'app', requiresAuth: true, title: 'Profile' },
     },
     {
       path: '/login',

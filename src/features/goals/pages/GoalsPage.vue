@@ -42,7 +42,7 @@
         </v-card-item>
 
         <v-card-text>
-          <div class="text-h6 font-weight-bold">
+          <div class="text-h6 font-weight-bold tabular-nums">
             {{ formatMoney(goal.current_amount) }} <span class="text-body-2 text-medium-emphasis">of {{ formatMoney(goal.target_amount) }}</span>
           </div>
 
@@ -55,8 +55,8 @@
           />
 
           <div class="d-flex justify-space-between mt-2 text-body-2">
-            <span class="text-medium-emphasis">{{ formatMoney(goal.remaining_amount) }} to go</span>
-            <span class="text-medium-emphasis">{{ goal.progress_percentage }}%</span>
+            <span class="text-medium-emphasis tabular-nums">{{ formatMoney(goal.remaining_amount) }} to go</span>
+            <span class="text-medium-emphasis tabular-nums">{{ goal.progress_percentage }}%</span>
           </div>
 
           <v-chip v-if="goal.status === 'completed'" class="mt-3" color="success" size="small">

@@ -5,37 +5,53 @@
     <v-row>
       <v-col cols="6" md="true" sm="4">
         <v-card>
-          <v-card-text>
+          <v-card-text class="d-flex flex-column ga-2">
+            <v-avatar color="primary" rounded="lg" size="32" variant="tonal">
+              <v-icon icon="mdi-wallet" size="18" />
+            </v-avatar>
+
             <div class="text-body-2 text-medium-emphasis">Balance</div>
-            <div class="text-h5 font-weight-bold">{{ formatMoney(summary.balance) }}</div>
+            <div class="text-h5 font-weight-bold tabular-nums">{{ formatMoney(summary.balance) }}</div>
           </v-card-text>
         </v-card>
       </v-col>
 
       <v-col cols="6" md="true" sm="4">
         <v-card>
-          <v-card-text>
+          <v-card-text class="d-flex flex-column ga-2">
+            <v-avatar color="success" rounded="lg" size="32" variant="tonal">
+              <v-icon icon="mdi-trending-up" size="18" />
+            </v-avatar>
+
             <div class="text-body-2 text-medium-emphasis">Income (this month)</div>
-            <div class="text-h5 font-weight-bold text-success">{{ formatMoney(summary.income) }}</div>
+            <div class="text-h5 font-weight-bold text-success tabular-nums">{{ formatMoney(summary.income) }}</div>
           </v-card-text>
         </v-card>
       </v-col>
 
       <v-col cols="6" md="true" sm="4">
         <v-card>
-          <v-card-text>
+          <v-card-text class="d-flex flex-column ga-2">
+            <v-avatar color="error" rounded="lg" size="32" variant="tonal">
+              <v-icon icon="mdi-trending-down" size="18" />
+            </v-avatar>
+
             <div class="text-body-2 text-medium-emphasis">Expenses (this month)</div>
-            <div class="text-h5 font-weight-bold text-error">{{ formatMoney(summary.expenses) }}</div>
+            <div class="text-h5 font-weight-bold text-error tabular-nums">{{ formatMoney(summary.expenses) }}</div>
           </v-card-text>
         </v-card>
       </v-col>
 
       <v-col cols="6" md="true" sm="4">
         <v-card>
-          <v-card-text>
+          <v-card-text class="d-flex flex-column ga-2">
+            <v-avatar :color="Number(summary.savings) >= 0 ? 'success' : 'error'" rounded="lg" size="32" variant="tonal">
+              <v-icon icon="mdi-piggy-bank-outline" size="18" />
+            </v-avatar>
+
             <div class="text-body-2 text-medium-emphasis">Savings (this month)</div>
 
-            <div class="text-h5 font-weight-bold" :class="Number(summary.savings) >= 0 ? 'text-success' : 'text-error'">
+            <div class="text-h5 font-weight-bold tabular-nums" :class="Number(summary.savings) >= 0 ? 'text-success' : 'text-error'">
               {{ formatMoney(summary.savings) }}
             </div>
           </v-card-text>
@@ -44,10 +60,14 @@
 
       <v-col cols="6" md="true" sm="4">
         <v-card>
-          <v-card-text>
+          <v-card-text class="d-flex flex-column ga-2">
+            <v-avatar color="primary" rounded="lg" size="32" variant="tonal">
+              <v-icon icon="mdi-chart-donut" size="18" />
+            </v-avatar>
+
             <div class="text-body-2 text-medium-emphasis">Remaining Budget</div>
 
-            <div v-if="summary.remaining_budget !== null" class="text-h5 font-weight-bold">
+            <div v-if="summary.remaining_budget !== null" class="text-h5 font-weight-bold tabular-nums">
               {{ formatMoney(summary.remaining_budget) }}
             </div>
 
@@ -75,7 +95,10 @@
               <v-list-item-subtitle>{{ transaction.transaction_date }} · {{ transaction.account.name }}</v-list-item-subtitle>
 
               <template #append>
-                <span :class="transaction.type === 'income' || transaction.type === 'transfer_in' ? 'text-success' : 'text-error'">
+                <span
+                  class="tabular-nums font-weight-medium"
+                  :class="transaction.type === 'income' || transaction.type === 'transfer_in' ? 'text-success' : 'text-error'"
+                >
                   {{ transaction.type === 'income' || transaction.type === 'transfer_in' ? '+' : '−' }}{{ formatMoney(transaction.amount) }}
                 </span>
               </template>
@@ -94,7 +117,7 @@
             <div v-for="row in summary.spending_by_category" :key="row.category.id" class="mb-3">
               <div class="d-flex justify-space-between text-body-2 mb-1">
                 <span>{{ row.category.name }}</span>
-                <span>{{ formatMoney(row.amount) }}</span>
+                <span class="tabular-nums">{{ formatMoney(row.amount) }}</span>
               </div>
 
               <v-progress-linear
@@ -116,7 +139,7 @@
             <div v-for="goal in summary.goals" :key="goal.id" class="mb-3">
               <div class="d-flex justify-space-between text-body-2 mb-1">
                 <span>{{ goal.name }}</span>
-                <span>{{ goal.progress_percentage }}%</span>
+                <span class="tabular-nums">{{ goal.progress_percentage }}%</span>
               </div>
 
               <v-progress-linear

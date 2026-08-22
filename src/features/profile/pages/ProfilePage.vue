@@ -3,6 +3,27 @@
 
   <v-row>
     <v-col cols="12" md="6">
+      <v-card class="mb-4">
+        <v-card-title>Appearance</v-card-title>
+
+        <v-card-text>
+          <div class="text-body-2 text-medium-emphasis mb-3">Choose how Wallet looks on this device.</div>
+
+          <v-btn-toggle
+            color="primary"
+            divided
+            mandatory
+            :model-value="preference"
+            variant="outlined"
+            @update:model-value="setPreference"
+          >
+            <v-btn prepend-icon="mdi-theme-light-dark" value="system">System</v-btn>
+            <v-btn prepend-icon="mdi-white-balance-sunny" value="light">Light</v-btn>
+            <v-btn prepend-icon="mdi-weather-night" value="dark">Dark</v-btn>
+          </v-btn-toggle>
+        </v-card-text>
+      </v-card>
+
       <v-card>
         <v-card-title>Profile info</v-card-title>
 
@@ -108,10 +129,12 @@
 
 <script lang="ts" setup>
   import { reactive, ref } from 'vue'
+  import { useAppTheme } from '@/composables/useAppTheme'
   import { extractErrorMessage, extractFieldErrors } from '@/lib/errors'
   import { useAuthStore } from '@/stores/auth'
 
   const authStore = useAuthStore()
+  const { preference, setPreference } = useAppTheme()
 
   const currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD']
   const timezones = typeof Intl.supportedValuesOf === 'function'

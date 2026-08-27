@@ -21,9 +21,9 @@ export default defineConfig({
       fontsource: {
         families: [
           {
-            name: 'Roboto',
-            weights: [100, 300, 400, 500, 700, 900],
-            styles: ['normal', 'italic'],
+            name: 'Inter',
+            weights: [400, 500, 600, 700, 800],
+            styles: ['normal'],
           },
         ],
       },
@@ -46,5 +46,9 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    // Docker Desktop on Windows doesn't propagate native filesystem
+    // change events across a bind mount, so HMR silently stops working
+    // for the containerized dev server without polling.
+    watch: process.env.CHOKIDAR_USEPOLLING === 'true' ? { usePolling: true } : undefined,
   },
 })

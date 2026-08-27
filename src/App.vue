@@ -1,11 +1,29 @@
 <template>
   <v-app>
-    <v-main>
+    <component :is="layout">
       <router-view />
-    </v-main>
+    </component>
+
+    <GlobalSnackbar />
   </v-app>
 </template>
 
 <script lang="ts" setup>
-  //
+  import { computed } from 'vue'
+  import { useRoute } from 'vue-router'
+  import GlobalSnackbar from '@/components/GlobalSnackbar.vue'
+  import { useAppTheme } from '@/composables/useAppTheme'
+  import AppLayout from '@/layouts/AppLayout.vue'
+  import AuthLayout from '@/layouts/AuthLayout.vue'
+
+  // Applies the user's stored theme preference (system/light/dark) on load.
+  useAppTheme()
+
+  const layouts = {
+    app: AppLayout,
+    auth: AuthLayout,
+  }
+
+  const route = useRoute()
+  const layout = computed(() => layouts[(route.meta.layout as keyof typeof layouts) ?? 'app'])
 </script>

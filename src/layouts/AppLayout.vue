@@ -60,6 +60,16 @@
   <v-app-bar flat>
     <v-app-bar-nav-icon v-if="!mdAndUp" @click="drawerOpen = !drawerOpen" />
     <v-app-bar-title class="font-weight-medium">{{ route.meta.title }}</v-app-bar-title>
+
+    <v-chip
+      v-if="authStore.user?.is_demo"
+      class="mr-4"
+      color="warning"
+      prepend-icon="mdi-flask-outline"
+      size="small"
+    >
+      Demo mode — resets in 2h
+    </v-chip>
   </v-app-bar>
 
   <v-main>

@@ -28,6 +28,10 @@
         <v-card-title>Profile info</v-card-title>
 
         <v-card-text>
+          <v-alert v-if="authStore.user?.is_demo" class="mb-4" type="info" variant="tonal">
+            Profile info can't be changed on a demo account.
+          </v-alert>
+
           <v-alert v-if="profileSuccess" class="mb-4" type="success">Profile updated.</v-alert>
 
           <v-alert
@@ -43,12 +47,14 @@
           <v-form @submit.prevent="handleProfileSubmit">
             <v-text-field
               v-model="profileForm.name"
+              :disabled="authStore.user?.is_demo"
               :error-messages="profileErrors.name"
               label="Name"
             />
 
             <v-text-field
               v-model="profileForm.email"
+              :disabled="authStore.user?.is_demo"
               :error-messages="profileErrors.email"
               label="Email"
               type="email"
@@ -56,6 +62,7 @@
 
             <v-select
               v-model="profileForm.currency"
+              :disabled="authStore.user?.is_demo"
               :error-messages="profileErrors.currency"
               :items="currencies"
               label="Currency"
@@ -63,12 +70,13 @@
 
             <v-select
               v-model="profileForm.timezone"
+              :disabled="authStore.user?.is_demo"
               :error-messages="profileErrors.timezone"
               :items="timezones"
               label="Timezone"
             />
 
-            <v-btn color="primary" :loading="isProfileSubmitting" type="submit">
+            <v-btn color="primary" :disabled="authStore.user?.is_demo" :loading="isProfileSubmitting" type="submit">
               Save changes
             </v-btn>
           </v-form>
@@ -81,6 +89,10 @@
         <v-card-title>Change password</v-card-title>
 
         <v-card-text>
+          <v-alert v-if="authStore.user?.is_demo" class="mb-4" type="info" variant="tonal">
+            Password can't be changed on a demo account.
+          </v-alert>
+
           <v-alert v-if="passwordSuccess" class="mb-4" type="success">Password updated.</v-alert>
 
           <v-alert
@@ -97,6 +109,7 @@
             <v-text-field
               v-model="passwordForm.current_password"
               autocomplete="current-password"
+              :disabled="authStore.user?.is_demo"
               :error-messages="passwordErrors.current_password"
               label="Current password"
               type="password"
@@ -105,6 +118,7 @@
             <v-text-field
               v-model="passwordForm.password"
               autocomplete="new-password"
+              :disabled="authStore.user?.is_demo"
               :error-messages="passwordErrors.password"
               label="New password"
               type="password"
@@ -113,11 +127,12 @@
             <v-text-field
               v-model="passwordForm.password_confirmation"
               autocomplete="new-password"
+              :disabled="authStore.user?.is_demo"
               label="Confirm new password"
               type="password"
             />
 
-            <v-btn color="primary" :loading="isPasswordSubmitting" type="submit">
+            <v-btn color="primary" :disabled="authStore.user?.is_demo" :loading="isPasswordSubmitting" type="submit">
               Update password
             </v-btn>
           </v-form>

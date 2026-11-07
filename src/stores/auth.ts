@@ -9,6 +9,7 @@ export interface AuthUser {
   email: string
   currency: string
   timezone: string
+  is_demo: boolean
 }
 
 interface ResourceResponse<T> {
@@ -48,6 +49,12 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = data.data
   }
 
+  async function demoLogin () {
+    await ensureCsrfCookie()
+    const { data } = await apiClient.post<ResourceResponse<AuthUser>>('/demo-login')
+    user.value = data.data
+  }
+
   async function logout () {
     await ensureCsrfCookie()
     await apiClient.post('/logout')
@@ -81,6 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
     fetchUser,
     register,
     login,
+    demoLogin,
     logout,
     forgotPassword,
     resetPassword,

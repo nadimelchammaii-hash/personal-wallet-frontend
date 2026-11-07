@@ -40,6 +40,23 @@
     </v-btn>
   </v-form>
 
+  <div class="d-flex align-center my-4 ga-3">
+    <v-divider />
+    <span class="text-caption text-medium-emphasis">or</span>
+    <v-divider />
+  </div>
+
+  <v-btn
+    block
+    :loading="isDemoSubmitting"
+    prepend-icon="mdi-play-circle-outline"
+    size="large"
+    variant="tonal"
+    @click="handleDemoLogin"
+  >
+    Try the demo
+  </v-btn>
+
   <div class="d-flex justify-space-between mt-4 text-body-2">
     <RouterLink to="/register">Need an account?</RouterLink>
     <RouterLink to="/forgot-password">Forgot password?</RouterLink>
@@ -79,6 +96,22 @@
       }
     } finally {
       isSubmitting.value = false
+    }
+  }
+
+  const isDemoSubmitting = ref(false)
+
+  async function handleDemoLogin () {
+    generalError.value = null
+    isDemoSubmitting.value = true
+
+    try {
+      await authStore.demoLogin()
+      router.push('/')
+    } catch (error) {
+      generalError.value = extractErrorMessage(error)
+    } finally {
+      isDemoSubmitting.value = false
     }
   }
 </script>

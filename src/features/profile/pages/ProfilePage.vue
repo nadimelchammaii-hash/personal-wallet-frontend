@@ -7,7 +7,7 @@
         <v-card-title>Appearance</v-card-title>
 
         <v-card-text>
-          <div class="text-body-2 text-medium-emphasis mb-3">Choose how Wallet looks on this device.</div>
+          <div class="text-body-2 text-medium-emphasis mb-3">Choose how TrackMyWallet looks on this device.</div>
 
           <v-btn-toggle
             color="primary"

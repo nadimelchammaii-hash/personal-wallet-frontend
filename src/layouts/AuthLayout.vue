@@ -8,7 +8,7 @@
               <v-icon color="white" icon="mdi-wallet" size="24" />
             </v-avatar>
 
-            <h1 class="text-h6 font-weight-bold">Wallet</h1>
+            <h1 class="text-h6 font-weight-bold">TrackMyWallet</h1>
           </div>
 
           <v-card>

@@ -10,7 +10,7 @@
       </v-avatar>
 
       <div>
-        <div class="text-subtitle-1 font-weight-bold">Wallet</div>
+        <div class="text-subtitle-1 font-weight-bold">TrackMyWallet</div>
         <div class="text-caption text-medium-emphasis">Personal budgeting</div>
       </div>
     </div>
@@ -68,7 +68,7 @@
       prepend-icon="mdi-flask-outline"
       size="small"
     >
-      Demo mode — resets in 2h
+      Demo mode — resets in 24h
     </v-chip>
   </v-app-bar>
 

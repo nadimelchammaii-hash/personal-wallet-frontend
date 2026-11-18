@@ -48,7 +48,7 @@ A **Demo mode — resets in 24h** badge stays visible in the app bar for the who
 
 ## Getting started
 
-The easiest way to run the full stack (this app + the API + MySQL + phpMyAdmin) is the `docker-compose.yml` one level up, at the root of the project checkout — see that file's own instructions. To run just this app standalone against an already-running API:
+The easiest way to run the full stack (this app + the API + MySQL + phpMyAdmin) is `docker-compose.yml` in the [`personal-wallet-backend`](https://github.com/nadimelchammaii-hash/personal-wallet-backend) repo — it builds this app from a sibling checkout, so clone both repos side by side and run `docker compose up` from there. To run just this app standalone against an already-running API:
 
 ```bash
 npm install
@@ -68,4 +68,4 @@ npm run type-check    # vue-tsc
 
 ## Deployment
 
-Production builds to static files (`vite build`) and serves them from a `caddy:2-alpine` image (`Dockerfile.prod` + `Caddyfile`), which also reverse-proxies the API — see `docker-compose.prod.yml` in the project root for the full three-container (`mysql`, `backend`, `frontend`) setup.
+Production builds to static files (`vite build`) and serves them from a `caddy:2-alpine` image (`Dockerfile.prod` + `Caddyfile`), which also reverse-proxies the API — see `docker-compose.prod.yml` in the [`personal-wallet-backend`](https://github.com/nadimelchammaii-hash/personal-wallet-backend) repo for the full three-container (`mysql`, `backend`, `frontend`) setup.
